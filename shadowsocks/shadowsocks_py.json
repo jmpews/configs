@@ -1,0 +1,8 @@
+{
+  "port_password": {
+    "2444": "qwaszx2444",
+    "2555": "qwaszx2555"
+  },
+  "method": "aes-128-cfb",
+  "timeout": 600
+}

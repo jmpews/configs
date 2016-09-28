@@ -7,7 +7,7 @@ endif
 
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "python,c,php,html,go"
+let g:vim_bootstrap_langs = "javascript,python,c,php,go"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -68,27 +68,22 @@ endif
 Plug 'honza/vim-snippets'
 
 "" Color
-""Plug 'tomasr/molokai'
-Plug 'dracula/vim'
+Plug 'tomasr/molokai'
 
 "" Custom bundles
 "" Python Bundle
 Plug 'davidhalter/jedi-vim'
 
 "" Go Lang Bundle
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
 Plug 'vim-scripts/c.vim'
 
+"" Javascript Bundle
+Plug 'jelera/vim-javascript-syntax'
+
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
-
-"" HTML Bundle
-Plug 'amirh/HTML-AutoCloseTag'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
 
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
@@ -113,10 +108,10 @@ set fileencodings=utf-8
 set backspace=indent,eol,start
 
 "" Tabs. May be overriten by autocmd rules
-"set tabstop=4
-"set softtabstop=0
-"set shiftwidth=4
-"set expandtab
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
 
 "" Map leader to ,
 let mapleader=','
@@ -157,9 +152,9 @@ set ruler
 set number
 
 let no_buffers_menu=1
-"if !exists('g:not_finish_vimplug')
-"  colorscheme molokai
-"endif
+if !exists('g:not_finish_vimplug')
+  colorscheme molokai
+endif
 
 set mousemodel=popup
 set t_Co=256
@@ -222,6 +217,7 @@ let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
 
 "*****************************************************************************
 "" Abbreviations
@@ -385,7 +381,10 @@ nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 " Disable visualbell
-set novisualbell t_vb=
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 
 "" Copy/Paste/Cut
 if has('unnamedplus')
@@ -442,7 +441,7 @@ augroup vimrc-python
 augroup END
 
 " jedi-vim
-let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 1
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>d"
 let g:jedi#documentation_command = "K"
@@ -450,7 +449,7 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#smart_auto_mappings = 0
+let g:jedi#smart_auto_mappings = 1
 
 " syntastic
 let g:syntastic_python_checkers=['python', 'flake8']
@@ -488,8 +487,17 @@ augroup FileType go
 augroup END
 
 
+autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 
+let g:javascript_enable_domhtmlcss = 1
+
+" vim-javascript
+augroup vimrc-javascript
+  autocmd!
+  autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+augroup END
 
 
 "" Include user's local vim config
@@ -509,9 +517,9 @@ endif
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '|'
+  let g:airline_left_sep          = '▶'
   let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '|'
+  let g:airline_right_sep         = '◀'
   let g:airline_right_alt_sep     = '«'
   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
   let g:airline#extensions#readonly#symbol   = '⊘'

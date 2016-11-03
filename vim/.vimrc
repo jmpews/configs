@@ -34,7 +34,8 @@ set smartcase
 
 "" Encoding
 set bomb
-set binary
+" !!! space -> tab
+" set binary
 set ttyfast
 
 "" Directories for swp files

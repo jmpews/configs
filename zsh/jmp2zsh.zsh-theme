@@ -109,4 +109,4 @@ function steeef_precmd {
 add-zsh-hook precmd steeef_precmd
 
 PROMPT=$'%{$blue%}%n${PR_RST} at %{$red%}%m${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
-%{$green%}λ : ${PR_RST}'
+%{$green%}λ : ${PR_RST}%{$hotpink%}>${PR_RST}%{$limegreen%}>${PR_RST}%{$turquoise%}>${PR_RST} '
